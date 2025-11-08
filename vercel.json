@@ -1,36 +1,24 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "../public"
-      }
-    },
-    {
-      "src": "server/index.js",
-      "use": "@vercel/node",
-      "config": {
-        "maxDuration": 10
-      }
+  "buildCommand": "cd client && npm install && npm run build",
+  "outputDirectory": "public",
+  "installCommand": "npm install",
+  "functions": {
+    "api/server.js": {
+      "runtime": "nodejs18.x"
     }
-  ],
-  "routes": [
+  },
+  "rewrites": [
     {
-      "src": "/socket.io/(.*)",
-      "dest": "/server/index.js"
+      "source": "/socket.io/(.*)",
+      "destination": "/api/server"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/server/index.js"
+      "source": "/api/(.*)",
+      "destination": "/api/server"
     },
     {
-      "src": "/(.*)",
-      "dest": "/public/$1"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
