@@ -19,7 +19,11 @@ const App = () => {
       ? window.location.origin
       : 'http://localhost:8080';
 
-    const newSocket = io(serverUrl);
+    const socketOptions = process.env.NODE_ENV === 'production'
+      ? { path: '/api/socket' }
+      : {};
+
+    const newSocket = io(serverUrl, socketOptions);
 
     newSocket.on('connect', () => {
       setConnectionState('connected');
