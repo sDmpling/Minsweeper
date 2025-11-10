@@ -2,19 +2,10 @@
   "buildCommand": "cd client && npm install && npm run build",
   "outputDirectory": "public",
   "installCommand": "npm install",
-  "functions": {
-    "api/server.js": {
-      "runtime": "nodejs18.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/socket.io/(.*)",
-      "destination": "/api/server"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/server"
+      "destination": "/api/socket"
     },
     {
       "source": "/(.*)",
